@@ -1,7 +1,99 @@
 <!DOCTYPE html>
-<html lang="de">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>In Kürze</title></head>
-<body style="font-family:Helvetica,Arial,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;color:#555">
-<p>Website folgt in Kürze.</p>
+<html lang="en" class="lang-en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>St. Sebastian Home — Jackson, California</title>
+<meta name="description" content="St. Sebastian Home — a cultural and civic initiative beside St. Sava Orthodox Church in Jackson, California.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="St. Sebastian Home">
+<meta property="og:title" content="St. Sebastian Home — Дом Светог Севастијана">
+<meta property="og:description" content="A cultural and civic initiative beside St. Sava Orthodox Church in Jackson, California.">
+<meta name="theme-color" content="#F9F9F7">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+<!-- Header font: Monomakh (Google Fonts, SIL Open Font License) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap">
+
+<!-- Coastlines for the globe (Natural Earth, public domain) -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json" as="fetch" crossorigin>
+
+<link rel="stylesheet" href="css/style.css?v=1">
+<script>
+  // Mark JS as available before first paint, so the intro can start hidden.
+  document.documentElement.className += ' js' +
+    (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches ? ' reduce' : '');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand bi" href="./">
+    <span data-l="en" lang="en"><span class="red">St. Sebastian</span> Home</span>
+    <span data-l="sr" lang="sr-Cyrl">Дом <span class="red">Светог Севастијана</span></span>
+  </a>
+  <button class="lang-btn" type="button" aria-label="Српски">
+    <!-- shown in English: Serbian tricolour, click for Serbian -->
+    <svg class="flag flag-rs" viewBox="0 0 26 17" aria-hidden="true">
+      <rect width="26" height="5.67" fill="#B65A54"/>
+      <rect y="5.67" width="26" height="5.66" fill="#4C6488"/>
+      <rect y="11.33" width="26" height="5.67" fill="#F3F1EB"/>
+    </svg>
+    <!-- shown in Serbian: American flag, click for English -->
+    <svg class="flag flag-us" viewBox="0 0 26 17" aria-hidden="true">
+      <rect width="26" height="17" fill="#F3F1EB"/>
+      <g fill="#B65A54">
+        <rect y="0" width="26" height="1.31"/><rect y="2.62" width="26" height="1.31"/>
+        <rect y="5.23" width="26" height="1.31"/><rect y="7.85" width="26" height="1.31"/>
+        <rect y="10.46" width="26" height="1.31"/><rect y="13.08" width="26" height="1.31"/>
+        <rect y="15.69" width="26" height="1.31"/>
+      </g>
+      <rect width="11" height="9.15" fill="#4C6488"/>
+      <g fill="#F3F1EB" opacity=".75">
+        <circle cx="2.2" cy="2" r=".55"/><circle cx="5.5" cy="2" r=".55"/><circle cx="8.8" cy="2" r=".55"/>
+        <circle cx="3.85" cy="4.6" r=".55"/><circle cx="7.15" cy="4.6" r=".55"/>
+        <circle cx="2.2" cy="7.2" r=".55"/><circle cx="5.5" cy="7.2" r=".55"/><circle cx="8.8" cy="7.2" r=".55"/>
+      </g>
+    </svg>
+  </button>
+</header>
+
+<main class="stage" aria-label="Herzegovina and Boka Kotorska to Jackson, California">
+  <canvas class="globe" aria-hidden="true"></canvas>
+
+  <span class="map-label bi lab-ah" data-geo="ah" aria-hidden="true">
+    <span data-l="en">Austria-Hungary</span><span data-l="sr">Аустроугарска</span>
+  </span>
+  <span class="map-label bi lab-herz is-red" data-geo="herz" aria-hidden="true">
+    <span data-l="en">Herzegovina</span><span data-l="sr">Херцеговина</span>
+  </span>
+  <span class="map-label bi lab-boka is-red" data-geo="boka" aria-hidden="true">
+    <span data-l="en">Boka Kotorska</span><span data-l="sr">Бока которска</span>
+  </span>
+  <span class="map-label bi lab-jackson" data-geo="jackson" aria-hidden="true">
+    <span data-l="en">Jackson, California</span><span data-l="sr">Џексон, Калифорнија</span>
+  </span>
+  <span class="pin" aria-hidden="true"></span>
+</main>
+
+<footer class="site-footer">
+  <span class="bi f-left">
+    <span data-l="en">Jackson, California</span>
+    <span data-l="sr" lang="sr-Cyrl">Џексон, Калифорнија</span>
+  </span>
+  <span class="bi f-right">
+    <span data-l="en">© 2026 St. Sebastian Home</span>
+    <span data-l="sr" lang="sr-Cyrl">© 2026 Дом Светог Севастијана</span>
+  </span>
+</footer>
+
+<script src="js/vendor/d3-array.min.js"></script>
+<script src="js/vendor/d3-geo.min.js"></script>
+<script src="js/regions.js?v=1"></script>
+<script src="js/lang.js?v=1"></script>
+<script src="js/globe.js?v=1"></script>
 </body>
 </html>
