@@ -12,14 +12,10 @@
 <meta name="theme-color" content="#F9F9F7">
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 
-<!-- Header font: Monomakh (Google Fonts, SIL Open Font License) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap">
-
-<!-- Coastlines for the globe (Natural Earth, public domain) -->
+<!-- Map outlines (Natural Earth / US Census, public domain) -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json" as="fetch" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json" as="fetch" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json" as="fetch" crossorigin>
 
 <link rel="stylesheet" href="css/style.css?v=1">
 <script>
@@ -32,8 +28,8 @@
 
 <header class="site-header">
   <a class="brand bi" href="./">
-    <span data-l="en" lang="en"><span class="red">St. Sebastian</span> Home</span>
-    <span data-l="sr" lang="sr-Cyrl">Дом <span class="red">Светог Севастијана</span></span>
+    <img data-l="en" class="t-en" src="images/title-en.svg" width="707" height="64" alt="St. Sebastian Home">
+    <img data-l="sr" class="t-sr" src="images/title-sr.svg" width="858" height="78" alt="Дом Светог Севастијана">
   </a>
   <button class="lang-btn" type="button" aria-label="Српски">
     <!-- shown in English: Serbian tricolour, click for Serbian -->
@@ -61,22 +57,15 @@
   </button>
 </header>
 
-<main class="stage" aria-label="Herzegovina and Boka Kotorska to Jackson, California">
-  <canvas class="globe" aria-hidden="true"></canvas>
-
-  <span class="map-label bi lab-ah" data-geo="ah" aria-hidden="true">
-    <span data-l="en">Austria-Hungary</span><span data-l="sr">Аустроугарска</span>
-  </span>
-  <span class="map-label bi lab-herz is-red" data-geo="herz" aria-hidden="true">
-    <span data-l="en">Herzegovina</span><span data-l="sr">Херцеговина</span>
-  </span>
-  <span class="map-label bi lab-boka is-red" data-geo="boka" aria-hidden="true">
-    <span data-l="en">Boka Kotorska</span><span data-l="sr">Бока которска</span>
-  </span>
-  <span class="map-label bi lab-jackson" data-geo="jackson" aria-hidden="true">
-    <span data-l="en">Jackson, California</span><span data-l="sr">Џексон, Калифорнија</span>
-  </span>
-  <span class="pin" aria-hidden="true"></span>
+<main class="stage" aria-label="Map: San Francisco, Sacramento, Los Angeles, Las Vegas and Phoenix to Jackson, California">
+  <canvas class="map-coast" aria-hidden="true"></canvas>
+  <canvas class="map-routes" aria-hidden="true"></canvas>
+  <span class="map-label bi is-red" data-place="jackson" aria-hidden="true"><span data-l="en">Jackson</span><span data-l="sr">Џексон</span></span>
+  <span class="map-label bi" data-place="sacramento" aria-hidden="true"><span data-l="en">Sacramento</span><span data-l="sr">Сакраменто</span></span>
+  <span class="map-label bi" data-place="sf" aria-hidden="true"><span data-l="en">San Francisco</span><span data-l="sr">Сан Франциско</span></span>
+  <span class="map-label bi" data-place="la" aria-hidden="true"><span data-l="en">Los Angeles</span><span data-l="sr">Лос Анђелес</span></span>
+  <span class="map-label bi" data-place="lv" aria-hidden="true"><span data-l="en">Las Vegas</span><span data-l="sr">Лас Вегас</span></span>
+  <span class="map-label bi" data-place="phoenix" aria-hidden="true"><span data-l="en">Phoenix</span><span data-l="sr">Финикс</span></span>
 </main>
 
 <footer class="site-footer">
@@ -90,10 +79,7 @@
   </span>
 </footer>
 
-<script src="js/vendor/d3-array.min.js"></script>
-<script src="js/vendor/d3-geo.min.js"></script>
-<script src="js/regions.js?v=1"></script>
 <script src="js/lang.js?v=1"></script>
-<script src="js/globe.js?v=1"></script>
+<script src="js/map.js?v=1" defer></script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 /* ==========================================================================
    ST. SEBASTIAN HOME — Дом Светог Севастијана
-   One screen: header, globe, footer. No scrolling.
-   Type:  Monomakh (header, from Google Fonts)
-          Helvetica Neue, light (labels, footer) — system font
+   One screen: header, map, footer. No scrolling.
+   Header: the title lettering, traced from the artwork (images/title-*.svg)
+   Type:   Helvetica Neue, light (labels, footer) — system font
    Background and rules follow the Milojević + Wilde site.
    ========================================================================== */
 
@@ -11,9 +11,8 @@
   --ink:      #1C1B18;
   --ink-soft: #6B6A62;
   --line:     #DFDFDB;
-  --red:      #A8392B;   /* "St. Sebastian" / "Светог Севастијана" */
+  --red:      #9E3729;   /* the red of the title artwork */
 
-  --f-head: 'Monomakh', 'Times New Roman', Times, serif;
   --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --pad: clamp(20px, 5vw, 64px);
@@ -81,14 +80,14 @@ button{ font: inherit; color: inherit; background: none; border: 0; padding: 0; 
   border-bottom: 1px solid var(--line);
 }
 .brand{
-  font-family: var(--f-head);
-  font-weight: 400;
-  font-size: clamp(1.25rem, 5.4vw, 2.5rem);
-  line-height: 1;
-  white-space: nowrap;
-  color: var(--ink);
+  /* one unit = one pixel of the original artwork; both lines share it,
+     so English and Serbian are drawn at exactly the same letter size */
+  --u: min(.56px, calc((100vw - 2 * var(--pad) - 60px) / 858));
+  align-items: start;
 }
-.brand .red{ color: var(--red); }
+.brand img{ display: block; width: auto; }
+.brand .t-en{ height: calc(var(--u) * 64); }
+.brand .t-sr{ height: calc(var(--u) * 78); margin-top: calc(var(--u) * -1); }
 
 /* language button: a small flag, same footprint as the M+W menu icon */
 .lang-btn{
@@ -111,7 +110,7 @@ button{ font: inherit; color: inherit; background: none; border: 0; padding: 0; 
 .lang-btn:hover .flag{ transform: translateY(-1px); }
 
 /* ==========================================================================
-   GLOBE
+   MAP
    ========================================================================== */
 .stage{
   position: relative;
@@ -119,49 +118,43 @@ button{ font: inherit; color: inherit; background: none; border: 0; padding: 0; 
   min-height: 0;
   overflow: hidden;
 }
-.globe{
+.stage canvas{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
 }
+.map-coast{
+  opacity: 0;
+  transition: opacity 2.4s cubic-bezier(.4,0,.2,1);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+          mask-composite: intersect;
+}
+.map-coast.is-on{ opacity: 1; }
+.map-coast.is-late{ transition-duration: 1.2s; }
+
 .map-label{
   position: absolute;
   left: 0; top: 0;
   z-index: 2;
-  font-size: .66rem;
-  line-height: 1.2;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .05em;
   white-space: nowrap;
-  color: var(--ink-soft);
+  color: var(--ink);
   opacity: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-.map-label.is-red{ color: var(--red); }
-.lab-ah{ justify-items: center; }
-.lab-herz{ justify-items: end; }
-.lab-jackson{ color: var(--ink); letter-spacing: .1em; }
-
-/* soft, slow ring at Jackson once the line has arrived */
-.pin{
-  position: absolute;
-  left: 0; top: 0;
-  width: 26px; height: 26px;
-  margin: -13px 0 0 -13px;
-  border-radius: 50%;
-  border: 1px solid rgba(28, 27, 24, .45);
-  opacity: 0;
+  transition: opacity .9s ease;
   pointer-events: none;
 }
-.pin.is-on{ animation: ring 3.6s ease-out infinite; }
-@keyframes ring{
-  0%  { opacity: .9; transform: scale(.25); }
-  70% { opacity: 0;  transform: scale(1); }
-  100%{ opacity: 0;  transform: scale(1); }
-}
+.map-label.is-on{ opacity: 1; }
+.map-label.is-red{ color: var(--red); font-weight: 500; font-size: 12.5px; }
 
 /* ==========================================================================
    FOOTER
@@ -187,7 +180,8 @@ button{ font: inherit; color: inherit; background: none; border: 0; padding: 0; 
 
 @media (max-width: 600px){
   .site-footer{ font-size: .64rem; letter-spacing: .06em; padding-top: 16px; padding-bottom: calc(18px + env(safe-area-inset-bottom)); }
-  .map-label{ font-size: .6rem; }
+  .map-label{ font-size: 10.5px; }
+  .map-label.is-red{ font-size: 11px; }
   .site-footer{ flex-direction: column; }
   .f-right{ justify-items: start; }
 }
@@ -209,6 +203,6 @@ button{ font: inherit; color: inherit; background: none; border: 0; padding: 0; 
 
 @media (prefers-reduced-motion: reduce){
   .js .brand, .js .lang-btn, .js .site-footer > *{ transition: none; }
-  .pin.is-on{ animation: none; opacity: .5; transform: scale(.45); }
+  .map-label{ transition: none; }
   .bi > [data-l]{ transition-duration: .2s; }
 }
